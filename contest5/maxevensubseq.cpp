@@ -1,40 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
-int A[1000000];
-int maxEvenSubSequence(int A[],int n){
-    int max_current = 0;
-    int max_so_far = 0;
-    int start = 0;
-    for(int i = 0;i<n;i++){
-        if (A[i] % 2 == 0){
-            max_current = A[i];
-            max_so_far = A[i];
-            start = i+1;
-        }
-        break;
+int a[1000007];
+int n;
+int dp[1000007];
+void input(){
+    cin >> n;
+    for(int i = 1;i<=n ;i++){
+        cin >> a[i];
     }
-    for(int i = start+1;i<n;i++){
-        if(A[i]%2 == 0 && A[i-1]%2 != 0) {
-            max_current = A[i];
-        } else if(A[i]%2 == 0 && abs(A[i-1])%2 == 0){
-            max_current = max(max_current+A[i],A[i]);
-        }
-        // cout<<max_current<<endl;
-        max_so_far = max(max_current,max_so_far);
+}
+void solution(){
+    dp[1] = a[1];
+    int max_current = a[1];
+    for(int i =2; i<=n;i++){
+        max_current = max(max_current + a[i],a[i]);
+        dp[i] = max(dp[i-1],max_current);
     }
-    return max_so_far;
 }
 int main(){
-    int n;
-    cin >> n;
-    for (int  i = 0; i < n;i++){
-        cin>>A[i];
+    input();
+    solution();
+    int ans = INT_MIN;
+    for(int i = 1;i<=n;i++){
+        if(dp[i] > ans && dp[i] % 2 == 0) ans = dp[i];
+        cout<<dp[i]<<" ";
     }
-
-    int res = maxEvenSubSequence(A,n);
-    if(res == 0 ){
-        cout<<"NOT_FOUND";
-    } else{
-        cout<<res;
-    }
+    if (ans == INT_MIN) { cout<<"NOT_FOUND";}
+    else{cout<<ans;}
 }

@@ -30,7 +30,7 @@ int main(){
     input();
     for (int i = 1;i<=n;i++){//xet qua n chang
         for(int k = ptime[i];k<=t;k++){ //xet thoi gian toi da
-            for(int j = i - 1;j>=max(0,i-d);j--){//yeu cau khoang cach phai nho hon hoac bang d
+            for(int j = i - 1;j>=max(0,i-d);j--){//yeu cau khoang cach phai nho hon hoac bang d - nhung vi tri ma co the toi dinh i dang xet
                 // cout<<dp[i][k]<<" ";
                 dp[i][k] = max(dp[i][k],dp[j][k-ptime[i]] + a[i]);
             }
